@@ -47,8 +47,8 @@ const Home = ({ navigation }: any) => {
   }, [error]);
 
   if (loading) return <Text>Loading....</Text>;
-  if (error && !userNotFound)
-    return <Text style={styles.errorText}>Error!</Text>;
+
+  const errorMessage = error && userNotFound ? 'User not found!' : 'Error';
 
   const handleSubmit = () => {
     getSomething({ variables: { username: username.toLowerCase().trim() } });
@@ -74,9 +74,7 @@ const Home = ({ navigation }: any) => {
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
-          {userNotFound && (
-            <Text style={styles.errorText}>User not found!</Text>
-          )}
+          {error && <Text style={styles.errorText}>{errorMessage}</Text>}
         </>
       )}
     </View>
