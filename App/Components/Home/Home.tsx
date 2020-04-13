@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -6,26 +6,33 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 import styles from './Home.styles';
+import { UserQuery } from '../../Queries/Queries';
 
 const Home = () => {
   const [username, setUsername] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [error, setError] = useState<boolean>(false);
+  const [userData, setUserData] = useState<any>(null);
+
+  const [getSomething, { loading, error, data }] = useLazyQuery(UserQuery);
+
+  useEffect(() => {
+    if (data && data.user) {
+      setUserData(data.user);
+    }
+  }, [data]);
+
+  if (loading) return <Text>Loading....</Text>;
+  if (error) return <Text style={styles.errorText}>Error!</Text>;
 
   const handleSubmit = () => {
-    alert(username);
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    getSomething({ variables: { username } });
   };
 
   return (
     <View style={styles.mainContainer}>
-      {isLoading ? (
+      {loading ? (
         <ActivityIndicator />
       ) : (
         <>
@@ -43,6 +50,7 @@ const Home = () => {
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
+          {userData && <Text>{userData.name}</Text>}
         </>
       )}
     </View>
