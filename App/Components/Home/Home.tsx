@@ -11,23 +11,42 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import styles from './Home.styles';
 import { UserQuery } from '../../Queries/Queries';
 
-const Home = () => {
+const Home = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>('');
   const [userData, setUserData] = useState<any>(null);
+  const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
-  const [getSomething, { loading, error, data }] = useLazyQuery(UserQuery);
+  const [getSomething, { loading, error, data }] = useLazyQuery(UserQuery, {
+    errorPolicy: 'all',
+  });
 
   useEffect(() => {
     if (data && data.user) {
+      setUserNotFound(false);
       setUserData(data.user);
+      navigation.navigate('Overview', { userData });
     }
   }, [data]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      const notFoundError = error.graphQLErrors.filter((e: any) => {
+        return e.type === 'NOT_FOUND';
+      });
+
+      if (notFoundError.length > 0) {
+        setUserNotFound(true);
+      }
+    }
+  }, [error]);
+
   if (loading) return <Text>Loading....</Text>;
-  if (error) return <Text style={styles.errorText}>Error!</Text>;
+  if (error && !userNotFound)
+    return <Text style={styles.errorText}>Error!</Text>;
 
   const handleSubmit = () => {
-    getSomething({ variables: { username } });
+    getSomething({ variables: { username: username.toLowerCase().trim() } });
   };
 
   return (
@@ -50,7 +69,11 @@ const Home = () => {
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
-          {userData && <Text>{userData.name}</Text>}
+          {userData !== null && <Text>User found</Text>}
+          {userData?.name && <Text>{userData.name}</Text>}
+          {userNotFound && (
+            <Text style={styles.errorText}>User not found!</Text>
+          )}
         </>
       )}
     </View>

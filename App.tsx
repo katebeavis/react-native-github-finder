@@ -8,6 +8,7 @@ import { setContext } from 'apollo-link-context';
 import { GITHUB_TOKEN } from 'react-native-dotenv';
 
 import Home from './App/Components/Home/Home';
+import Overview from './App/Components/Overview/Overview';
 
 const token = GITHUB_TOKEN;
 
@@ -38,6 +39,11 @@ const App = () => {
             name='Home'
             component={Home}
             options={{ title: 'Home' }}
+          />
+          <Stack.Screen
+            name='Overview'
+            component={Overview}
+            options={{ title: 'Overview' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
