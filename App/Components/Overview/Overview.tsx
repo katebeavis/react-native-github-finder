@@ -1,10 +1,15 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View, Text } from 'react-native';
+
+import styles from './Overview.styles';
 
 const Overview = ({ route }: any) => {
   const { userData } = route.params;
-  console.log(userData);
-  return <Text>This is the overview</Text>;
+  return (
+    <View style={styles.container}>
+      <Text>{JSON.stringify(userData)}</Text>
+    </View>
+  );
 };
 
 export default Overview;

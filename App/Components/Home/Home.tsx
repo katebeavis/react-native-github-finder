@@ -13,7 +13,6 @@ import { UserQuery } from '../../Queries/Queries';
 
 const Home = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>('');
-  const [userData, setUserData] = useState<any>(null);
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
   const [getSomething, { loading, error, data }] = useLazyQuery(UserQuery, {
@@ -21,16 +20,22 @@ const Home = ({ navigation }: any) => {
   });
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setUsername('');
+      setUserNotFound(false);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
     if (data && data.user) {
       setUserNotFound(false);
-      setUserData(data.user);
-      navigation.navigate('Overview', { userData });
+      navigation.navigate('Overview', { userData: data.user });
     }
   }, [data]);
 
   useEffect(() => {
     if (error) {
-      console.log(error);
       const notFoundError = error.graphQLErrors.filter((e: any) => {
         return e.type === 'NOT_FOUND';
       });
@@ -69,8 +74,6 @@ const Home = ({ navigation }: any) => {
           >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
-          {userData !== null && <Text>User found</Text>}
-          {userData?.name && <Text>{userData.name}</Text>}
           {userNotFound && (
             <Text style={styles.errorText}>User not found!</Text>
           )}
