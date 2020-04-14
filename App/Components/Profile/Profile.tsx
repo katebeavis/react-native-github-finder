@@ -1,8 +1,9 @@
 import React from 'react';
-import { ScrollView, View, Image, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import styles from './Profile.styles';
 import Badge from '../Badge/Badge';
+import Separator from '../Helpers/Separator';
 
 const Profile = ({ route }: any) => {
   const { user } = route.params;
@@ -14,30 +15,37 @@ const Profile = ({ route }: any) => {
         <Text style={styles.rowTitle}>Location</Text>
         <Text style={styles.rowContent}>{location}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Email</Text>
         <Text style={styles.rowContent}>{email}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Followers</Text>
         <Text style={styles.rowContent}>{followers.totalCount}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Following</Text>
         <Text style={styles.rowContent}>{following.totalCount}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Location</Text>
         <Text style={styles.rowContent}>{location}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Company</Text>
         <Text style={styles.rowContent}>{company}</Text>
       </View>
+      <Separator />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Repositories</Text>
         <Text style={styles.rowContent}>{repositories.totalCount}</Text>
       </View>
+      <Separator />
     </ScrollView>
   );
 };

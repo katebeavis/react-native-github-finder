@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     ...Typography.medium,
-    color: Colours.grey,
+    color: Colours.black,
     alignSelf: 'center',
   },
   button: {
