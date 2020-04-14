@@ -9,6 +9,7 @@ import { GITHUB_TOKEN } from 'react-native-dotenv';
 
 import Home from './App/Components/Home/Home';
 import Overview from './App/Components/Overview/Overview';
+import Profile from './App/Components/Profile/Profile';
 
 const token = GITHUB_TOKEN;
 
@@ -44,6 +45,11 @@ const App = () => {
             name='Overview'
             component={Overview}
             options={{ title: 'Overview' }}
+          />
+          <Stack.Screen
+            name='Profile'
+            component={Profile}
+            options={{ title: 'Profile' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

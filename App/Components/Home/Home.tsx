@@ -30,7 +30,7 @@ const Home = ({ navigation }: any) => {
   useEffect(() => {
     if (data && data.user) {
       setUserNotFound(false);
-      navigation.navigate('Overview', { userData: data.user });
+      navigation.navigate('Overview', { user: data.user });
     }
   }, [data]);
 

@@ -4,13 +4,21 @@ export const UserQuery = gql`
   query UserQuery($username: String!) {
     user(login: $username) {
       avatarUrl
-      bio
-      company
-      email
       name
-      location
       login
-      websiteUrl
+      company
+      location
+      following {
+        totalCount
+      }
+      followers {
+        totalCount
+      }
+      email
+      bio
+      repositories {
+        totalCount
+      }
     }
   }
 `;
