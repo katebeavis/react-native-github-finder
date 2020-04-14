@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorText: {
-    fontSize: 18,
-    textAlign: 'center',
+    ...Typography.medium,
     color: Colours.red,
+    alignSelf: 'center',
   },
 });
 

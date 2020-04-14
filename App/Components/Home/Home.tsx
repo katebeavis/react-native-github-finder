@@ -46,8 +46,6 @@ const Home = ({ navigation }: any) => {
     }
   }, [error]);
 
-  if (loading) return <Text>Loading....</Text>;
-
   const errorMessage = error && userNotFound ? 'User not found!' : 'Error';
 
   const handleSubmit = () => {
@@ -56,27 +54,26 @@ const Home = ({ navigation }: any) => {
 
   return (
     <View style={styles.mainContainer}>
-      {loading ? (
-        <ActivityIndicator />
-      ) : (
-        <>
-          <Text style={styles.title}>Search for a Github user</Text>
-          <TextInput
-            style={styles.searchInput}
-            value={username}
-            onChangeText={(input) => setUsername(input)}
-          />
-          <TouchableHighlight
-            style={styles.button}
-            onPress={handleSubmit}
-            underlayColor={'white'}
-            accessibilityLabel={'Submit'}
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableHighlight>
-          {error && <Text style={styles.errorText}>{errorMessage}</Text>}
-        </>
+      <Text style={styles.title}>Search for a Github user</Text>
+      <TextInput
+        style={styles.searchInput}
+        value={username}
+        onChangeText={(input) => setUsername(input)}
+      />
+      <TouchableHighlight
+        style={styles.button}
+        onPress={handleSubmit}
+        underlayColor={'white'}
+        accessibilityLabel={'Submit'}
+      >
+        <Text style={styles.buttonText}>Submit</Text>
+      </TouchableHighlight>
+      {error && (
+        <View>
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        </View>
       )}
+      <ActivityIndicator animating={loading} color={'#111'} size={'large'} />
     </View>
   );
 };
