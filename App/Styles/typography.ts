@@ -1,3 +1,7 @@
+export const extraSmall = {
+  fontSize: 14,
+};
+
 export const small = {
   fontSize: 16,
 };

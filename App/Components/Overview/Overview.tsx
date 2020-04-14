@@ -17,11 +17,11 @@ const Overview = ({ navigation, route }: any) => {
         <Text style={styles.buttonText}>View profile</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress={() => alert('this button was pressed')}
+        onPress={() => navigation.navigate('RepositoryOverview', { user })}
         underlayColor={'#88D4F5'}
         style={styles.pinkButton}
       >
-        <Text style={styles.buttonText}>View repos</Text>
+        <Text style={styles.buttonText}>View repositories</Text>
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => alert('this button was pressed')}
