@@ -17,6 +17,7 @@
     "apollo-link-context": "^1.0.20",
     "babel-preset-react-native": "^4.0.1",
     "expo": "~37.0.3",
+    "firebase": "^7.14.0",
     "graphql": "^15.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
