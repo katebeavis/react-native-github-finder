@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View, Text, Image, TouchableHighlight } from 'react-native';
 
 import styles from './Overview.styles';
-import Badge from '../Badge/Badge';
 
 const Overview = ({ navigation, route }: any) => {
   const { user } = route.params;
   return (
     <View style={styles.container}>
-      <Badge avatarUrl={user.avatarUrl} name={user.name} login={user.login} />
+      <Image source={{ uri: user.avatarUrl }} style={styles.image} />
       <TouchableHighlight
         onPress={() => navigation.navigate('Profile', { user })}
         underlayColor={'#88D4F5'}

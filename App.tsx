@@ -11,6 +11,7 @@ import Home from './App/Components/Home/Home';
 import Overview from './App/Components/Overview/Overview';
 import Profile from './App/Components/Profile/Profile';
 import RepositoryOverview from './App/Components/RepositoryOverview/RepositoryOverview';
+import Browser from './App/Components/Browser/Browser';
 
 const token = GITHUB_TOKEN;
 
@@ -56,6 +57,11 @@ const App = () => {
             name='RepositoryOverview'
             component={RepositoryOverview}
             options={{ title: 'Repositories' }}
+          />
+          <Stack.Screen
+            name='Browser'
+            component={Browser}
+            options={({ route }: any) => ({ title: route.params.name })}
           />
         </Stack.Navigator>
       </NavigationContainer>
