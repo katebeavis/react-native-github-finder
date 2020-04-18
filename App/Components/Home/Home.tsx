@@ -15,7 +15,7 @@ const Home = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>('');
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
-  const [getSomething, { loading, error, data }] = useLazyQuery(UserQuery, {
+  const [getUser, { loading, error, data }] = useLazyQuery(UserQuery, {
     errorPolicy: 'all',
   });
 
@@ -49,7 +49,7 @@ const Home = ({ navigation }: any) => {
   const errorMessage = error && userNotFound ? 'User not found!' : 'Error';
 
   const handleSubmit = () => {
-    getSomething({ variables: { username: username.toLowerCase().trim() } });
+    getUser({ variables: { username: username.toLowerCase().trim() } });
   };
 
   return (
