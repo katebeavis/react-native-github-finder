@@ -4,3 +4,8 @@ datamodel: datamodel.graphql
 generate:
   - generator: typescript-client
     output: ./generated/prisma-client/
+
+# Deploy hook
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
