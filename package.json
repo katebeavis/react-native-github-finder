@@ -4,7 +4,7 @@
   "author": "<katebeavis84@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.2.0"
   },
   "scripts": {
     "dev": "concurrently --kill-others \"yarn start:server\" \"yarn start:client\"",
