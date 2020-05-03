@@ -30,3 +30,11 @@ export const UserQuery = gql`
     }
   }
 `;
+
+export const GetNotesQuery = gql`
+  query GetNotesQuery {
+    notes {
+      content
+    }
+  }
+`;

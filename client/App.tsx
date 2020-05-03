@@ -4,30 +4,36 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { setContext } from 'apollo-link-context';
-import { GITHUB_TOKEN } from 'react-native-dotenv';
+// import { setContext } from 'apollo-link-context';
+// import { GITHUB_TOKEN } from 'react-native-dotenv';
 
 import Home from './App/Components/Home/Home';
 import Overview from './App/Components/Overview/Overview';
 import Profile from './App/Components/Profile/Profile';
 import RepositoryOverview from './App/Components/RepositoryOverview/RepositoryOverview';
 import Browser from './App/Components/Browser/Browser';
+import Notes from './App/Components/Notes/Notes';
 
-const token = GITHUB_TOKEN;
+// const token = GITHUB_TOKEN;
 
-const authLink = setContext((_: any, { headers }: any) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : null,
-    },
-  };
-});
+// const authLink = setContext((_: any, { headers }: any) => {
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token ? `Bearer ${token}` : null,
+//     },
+//   };
+// });
 
-const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
+// const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
+
+// const client = new ApolloClient({
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache(),
+// });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: new HttpLink({ uri: '/graphql' }),
   cache: new InMemoryCache(),
 });
 
@@ -62,6 +68,11 @@ const App = () => {
             name='Browser'
             component={Browser}
             options={({ route }: any) => ({ title: route.params.name })}
+          />
+          <Stack.Screen
+            name='Notes'
+            component={Notes}
+            options={{ title: 'Notes' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
