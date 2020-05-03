@@ -1,1 +1,1 @@
-# Github Note Taker
+# Github Note Taker [![Dependabot Status](https://badgen.net/dependabot/katebeavis/react-native-github-finder/260267900?icon=dependabot)](https://app.dependabot.com/accounts/katebeavis/repos/260267900)

@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
 import * as cookieParser from 'cookie-parser';
-import { Request } from 'express';
 
 import createServer from './createServer';
 

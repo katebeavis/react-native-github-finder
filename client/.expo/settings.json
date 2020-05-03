@@ -4,5 +4,5 @@
   "dev": true,
   "minify": false,
   "urlRandomness": "4g-pzx",
-  "https": false
+  "https": true
 }
