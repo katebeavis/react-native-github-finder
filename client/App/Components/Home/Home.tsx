@@ -19,8 +19,6 @@ const Home = ({ navigation }: any) => {
     errorPolicy: 'all',
   });
 
-  console.log({ error });
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setUsername('');

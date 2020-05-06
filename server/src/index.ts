@@ -1,16 +1,21 @@
 import * as dotenv from 'dotenv';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
-import { ApolloServer } from 'apollo-server-express';
+import {
+  ApolloServer,
+  introspectSchema,
+  makeRemoteExecutableSchema,
+} from 'apollo-server-express';
 import * as express from 'express';
 import * as cors from 'cors';
 import { importSchema } from 'graphql-import';
 import * as path from 'path';
-import { mergeSchemas, makeExecutableSchema } from 'graphql-tools';
+import { mergeSchemas } from 'graphql-tools';
+import { fetch } from 'cross-fetch';
+import { HttpLink } from 'apollo-link-http';
 
 import Query from './query';
 import db from './db';
-import { typeDefs } from './schema';
 
 dotenv.config();
 
@@ -30,25 +35,40 @@ const prismaSchema = path.resolve('src/schema.graphql');
 
 const prisma = importSchema(prismaSchema);
 
-const main = makeExecutableSchema({ typeDefs });
+const createSchema = async () => {
+  const link = new HttpLink({
+    uri: `https://api.github.com/graphql`,
+    headers: {
+      authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+    fetch,
+  });
 
-const schema = mergeSchemas({
-  schemas: [prisma, main],
-  resolvers,
-});
+  const schema = await introspectSchema(link);
 
-const apollo = new ApolloServer({
-  schema,
-  resolvers,
-  introspection: true,
-  context: ({ req }): any => {
-    return {
-      db,
-    };
-  },
-});
+  return makeRemoteExecutableSchema({
+    schema,
+    link,
+  });
+};
 
-apollo.applyMiddleware({ app });
+const mergedSchema = async () =>
+  mergeSchemas({
+    schemas: [prisma, await createSchema()],
+    resolvers,
+  });
+
+const createServer = async () => {
+  return new ApolloServer({
+    schema: await mergedSchema(),
+    introspection: true,
+    context: ({ req }): any => {
+      return {
+        db,
+      };
+    },
+  });
+};
 
 app.use(
   cors({
@@ -57,6 +77,12 @@ app.use(
   })
 );
 
-app.listen({ port: process.env.PORT }, () => {
-  console.log('Server listening on PORT', process.env.PORT);
-});
+async function start() {
+  const apollo = await createServer();
+  apollo.applyMiddleware({ app });
+  app.listen({ port: process.env.PORT }, () => {
+    console.log('Server listening on PORT', process.env.PORT);
+  });
+}
+
+start();

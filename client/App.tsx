@@ -2,10 +2,8 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
+import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-// import { setContext } from 'apollo-link-context';
-// import { GITHUB_TOKEN } from 'react-native-dotenv';
 
 import Home from './App/Components/Home/Home';
 import Overview from './App/Components/Overview/Overview';
@@ -13,29 +11,9 @@ import Profile from './App/Components/Profile/Profile';
 import RepositoryOverview from './App/Components/RepositoryOverview/RepositoryOverview';
 import Browser from './App/Components/Browser/Browser';
 import Notes from './App/Components/Notes/Notes';
+import axios from 'axios';
 
-// const token = GITHUB_TOKEN;
-
-// const authLink = setContext((_: any, { headers }: any) => {
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token ? `Bearer ${token}` : null,
-//     },
-//   };
-// });
-
-// const httpLink = new HttpLink({ uri: 'https://api.github.com/graphql' });
-
-// const client = new ApolloClient({
-//   link: authLink.concat(httpLink),
-//   cache: new InMemoryCache(),
-// });
-
-const client = new ApolloClient({
-  link: new HttpLink({ uri: '/graphql' }),
-  cache: new InMemoryCache(),
-});
+const client = new ApolloClient({ uri: 'http://localhost:4444/graphql' });
 
 const App = () => {
   const Stack = createStackNavigator();
