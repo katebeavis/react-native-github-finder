@@ -21,7 +21,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'Home'}>
+        <Stack.Navigator initialRouteName={'Notes'}>
           <Stack.Screen
             name='Home'
             component={Home}
