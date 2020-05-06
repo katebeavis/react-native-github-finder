@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -6,12 +6,13 @@ import {
   TouchableHighlight,
   TextInput,
 } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-// import Badge from '../Badge/Badge';
+import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
 import styles from './Notes.styles';
 import { GetNotesQuery } from '../../Queries/Queries';
+import { CreateNoteMutation } from '../../Mutations/Mutations';
 
 const Notes = () => {
   const [note, setNote] = useState<string>('');
@@ -20,20 +21,39 @@ const Notes = () => {
     errorPolicy: 'all',
   });
 
-  if (loading) return <Text>'Loading...'</Text>;
+  const [
+    createNote,
+    { loading: mutationLoading, error: mutationError },
+  ] = useMutation(CreateNoteMutation, {
+    refetchQueries: () => [{ query: GetNotesQuery }],
+  });
 
-  if (error) return <Text>'Error!'</Text>;
+  console.log({ mutationLoading, mutationError });
+
+  if (loading || mutationLoading) return <Text>'Loading...'</Text>;
+
+  if (error || mutationError) return <Text>'Error!'</Text>;
 
   const { notes } = data;
 
   const handleSubmit = () => {
-    console.log('object');
+    createNote({ variables: { data: { content: note } } });
+    setNote('');
   };
 
   return (
     <View style={styles.container}>
       <FlatList
         data={notes}
+        ListHeaderComponent={
+          <Badge
+            avatarUrl={
+              'https://avatars1.githubusercontent.com/u/10133018?u=0e485d954288b95774808ddb1651849e24b5a3ab&v=4'
+            }
+            name={'name'}
+            login={'login'}
+          />
+        }
         renderItem={({ item }) => (
           <View>
             <View style={styles.rowContainer}>
@@ -54,10 +74,10 @@ const Notes = () => {
           />
           <TouchableHighlight
             style={styles.button}
-            onPress={() => handleSubmit}
+            onPress={handleSubmit}
             underlayColor='#88D4F5'
           >
-            <Text style={styles.buttonText}> Submit </Text>
+            <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
         </View>
       </View>

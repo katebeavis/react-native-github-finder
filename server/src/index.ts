@@ -15,6 +15,7 @@ import { fetch } from 'cross-fetch';
 import { HttpLink } from 'apollo-link-http';
 
 import Query from './query';
+import Mutation from './mutation';
 import db from './db';
 
 dotenv.config();
@@ -29,7 +30,7 @@ app.get('/api/healthz', (req, res) => {
   res.send('OK');
 });
 
-const resolvers = { Query };
+const resolvers = { Query, Mutation };
 
 const prismaSchema = path.resolve('src/schema.graphql');
 
