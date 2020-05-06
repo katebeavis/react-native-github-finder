@@ -14,7 +14,9 @@ import styles from './Notes.styles';
 import { GetNotesQuery } from '../../Queries/Queries';
 import { CreateNoteMutation } from '../../Mutations/Mutations';
 
-const Notes = () => {
+const Notes = ({ route }: any) => {
+  const { user } = route.params;
+
   const [note, setNote] = useState<string>('');
 
   const { loading, error, data } = useQuery(GetNotesQuery, {
@@ -27,8 +29,6 @@ const Notes = () => {
   ] = useMutation(CreateNoteMutation, {
     refetchQueries: () => [{ query: GetNotesQuery }],
   });
-
-  console.log({ mutationLoading, mutationError });
 
   if (loading || mutationLoading) return <Text>'Loading...'</Text>;
 
@@ -47,11 +47,9 @@ const Notes = () => {
         data={notes}
         ListHeaderComponent={
           <Badge
-            avatarUrl={
-              'https://avatars1.githubusercontent.com/u/10133018?u=0e485d954288b95774808ddb1651849e24b5a3ab&v=4'
-            }
-            name={'name'}
-            login={'login'}
+            avatarUrl={user.avatarUrl}
+            name={user.name}
+            login={user.login}
           />
         }
         renderItem={({ item }) => (

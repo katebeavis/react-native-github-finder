@@ -23,7 +23,7 @@ const Overview = ({ navigation, route }: any) => {
         <Text style={styles.buttonText}>View repositories</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress={() => alert('this button was pressed')}
+        onPress={() => navigation.navigate('Notes', { user })}
         underlayColor={'#88D4F5'}
         style={styles.purpleButton}
       >
