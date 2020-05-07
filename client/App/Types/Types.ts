@@ -1,3 +1,6 @@
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
 export interface IUser {
   avatarUrl: string;
   name: string;
@@ -44,9 +47,6 @@ export interface IUserContext {
   loading: boolean;
   error: any;
 }
-
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 type RootStackParamList = {
   Home: undefined;
