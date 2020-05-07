@@ -13,9 +13,10 @@ import Separator from '../Helpers/Separator';
 import styles from './Notes.styles';
 import { GetNotesQuery } from '../../Queries/Queries';
 import { CreateNoteMutation } from '../../Mutations/Mutations';
+import { useUser } from '../UserContext/UserProvider';
 
-const Notes = ({ route }: any) => {
-  const { user } = route.params;
+const Notes = () => {
+  const { user } = useUser();
 
   const [note, setNote] = useState<string>('');
 

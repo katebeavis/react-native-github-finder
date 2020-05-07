@@ -4,9 +4,11 @@ import { ScrollView, View, Text } from 'react-native';
 import styles from './Profile.styles';
 import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
+import { useUser } from '../UserContext/UserProvider';
 
-const Profile = ({ route }: any) => {
-  const { user } = route.params;
+const Profile = () => {
+  const { user } = useUser();
+
   const { location, email, followers, following, company, repositories } = user;
   return (
     <ScrollView style={styles.container}>

@@ -6,18 +6,15 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
-import { useLazyQuery } from '@apollo/react-hooks';
 
 import styles from './Home.styles';
-import { UserQuery } from '../../Queries/Queries';
+import { useUser } from '../UserContext/UserProvider';
 
 const Home = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>('');
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
-  const [getUser, { loading, error, data }] = useLazyQuery(UserQuery, {
-    errorPolicy: 'all',
-  });
+  const { user, getUser, loading, error } = useUser();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -28,11 +25,11 @@ const Home = ({ navigation }: any) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (data && data.user) {
+    if (user) {
       setUserNotFound(false);
-      navigation.navigate('Overview', { user: data.user });
+      navigation.navigate('Overview');
     }
-  }, [data]);
+  }, [user]);
 
   useEffect(() => {
     if (error) {

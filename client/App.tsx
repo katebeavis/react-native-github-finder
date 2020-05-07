@@ -12,6 +12,7 @@ import Profile from './App/Components/Profile/Profile';
 import RepositoryOverview from './App/Components/RepositoryOverview/RepositoryOverview';
 import Browser from './App/Components/Browser/Browser';
 import Notes from './App/Components/Notes/Notes';
+import { UserProvider } from './App/Components/UserContext/UserProvider';
 
 const client = new ApolloClient({
   uri: `http://${BASE_URL}:4444/graphql`,
@@ -22,40 +23,42 @@ const App = () => {
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={'Home'}>
-          <Stack.Screen
-            name='Home'
-            component={Home}
-            options={{ title: 'Home' }}
-          />
-          <Stack.Screen
-            name='Overview'
-            component={Overview}
-            options={{ title: 'Overview' }}
-          />
-          <Stack.Screen
-            name='Profile'
-            component={Profile}
-            options={{ title: 'Profile' }}
-          />
-          <Stack.Screen
-            name='RepositoryOverview'
-            component={RepositoryOverview}
-            options={{ title: 'Repositories' }}
-          />
-          <Stack.Screen
-            name='Browser'
-            component={Browser}
-            options={({ route }: any) => ({ title: route.params.name })}
-          />
-          <Stack.Screen
-            name='Notes'
-            component={Notes}
-            options={{ title: 'Notes' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <UserProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={'Home'}>
+            <Stack.Screen
+              name='Home'
+              component={Home}
+              options={{ title: 'Home' }}
+            />
+            <Stack.Screen
+              name='Overview'
+              component={Overview}
+              options={{ title: 'Overview' }}
+            />
+            <Stack.Screen
+              name='Profile'
+              component={Profile}
+              options={{ title: 'Profile' }}
+            />
+            <Stack.Screen
+              name='RepositoryOverview'
+              component={RepositoryOverview}
+              options={{ title: 'Repositories' }}
+            />
+            <Stack.Screen
+              name='Browser'
+              component={Browser}
+              options={({ route }: any) => ({ title: route.params.name })}
+            />
+            <Stack.Screen
+              name='Notes'
+              component={Notes}
+              options={{ title: 'Notes' }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserProvider>
     </ApolloProvider>
   );
 };

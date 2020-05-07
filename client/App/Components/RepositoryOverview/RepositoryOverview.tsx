@@ -4,9 +4,10 @@ import { ScrollView, View, Text, TouchableHighlight } from 'react-native';
 import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
 import styles from '../RepositoryOverview/RepositoryOverview.styles';
+import { useUser } from '../UserContext/UserProvider';
 
-const RepositoryOverview = ({ navigation, route }: any) => {
-  const { user } = route.params;
+const RepositoryOverview = ({ navigation }: any) => {
+  const { user } = useUser();
   const { repositories } = user;
 
   return (
