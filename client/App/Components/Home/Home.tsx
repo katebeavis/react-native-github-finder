@@ -6,7 +6,6 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
-// import { GraphQLError } from 'graphql';
 
 import styles from './Home.styles';
 import { useUser } from '../UserContext/UserProvider';
