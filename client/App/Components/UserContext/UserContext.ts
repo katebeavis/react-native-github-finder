@@ -6,7 +6,7 @@ const UserContext = createContext<IUserContext>({
   user: null,
   getUser: () => {},
   loading: false,
-  error: null,
+  error: undefined,
 });
 
 export default UserContext;

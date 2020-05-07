@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 
 import UserContext from './UserContext';
-import { IUserContext } from '../../Types/Types';
+import { IUserContext, IUser } from '../../Types/Types';
 import { UserQuery } from '../../Queries/Queries';
 
 export const useUser = () => useContext<IUserContext>(UserContext);
@@ -12,7 +12,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     errorPolicy: 'all',
   });
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     if (!loading && data && data.user) {

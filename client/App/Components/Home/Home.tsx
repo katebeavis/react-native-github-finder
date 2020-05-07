@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   ActivityIndicator,
 } from 'react-native';
+// import { GraphQLError } from 'graphql';
 
 import styles from './Home.styles';
 import { useUser } from '../UserContext/UserProvider';
@@ -33,7 +34,7 @@ const Home = ({ navigation }: NavigationProps) => {
   }, [user]);
 
   useEffect(() => {
-    if (error) {
+    if (error && error.graphQLErrors) {
       const notFoundError = error.graphQLErrors.filter((e: any) => {
         return e.type === 'NOT_FOUND';
       });

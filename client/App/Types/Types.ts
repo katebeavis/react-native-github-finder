@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ApolloError } from 'apollo-boost';
 
 export interface IUser {
   avatarUrl: string;
@@ -43,9 +44,9 @@ export interface INote {
 
 export interface IUserContext {
   user: IUser | null;
-  getUser: () => void;
+  getUser: (arg: { variables: { username: string } }) => void;
   loading: boolean;
-  error: any;
+  error: ApolloError | undefined;
 }
 
 type RootStackParamList = {
