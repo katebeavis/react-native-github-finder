@@ -9,8 +9,9 @@ import {
 
 import styles from './Home.styles';
 import { useUser } from '../UserContext/UserProvider';
+import { NavigationProps } from '../../Types/Types';
 
-const Home = ({ navigation }: any) => {
+const Home = ({ navigation }: NavigationProps) => {
   const [username, setUsername] = useState<string>('');
   const [userNotFound, setUserNotFound] = useState<boolean>(false);
 

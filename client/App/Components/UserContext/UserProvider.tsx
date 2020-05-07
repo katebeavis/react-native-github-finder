@@ -1,9 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { Text } from 'react-native';
 
 import UserContext from './UserContext';
-import { IUserContext } from './types';
+import { IUserContext } from '../../Types/Types';
 import { UserQuery } from '../../Queries/Queries';
 
 export const useUser = () => useContext<IUserContext>(UserContext);

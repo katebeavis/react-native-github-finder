@@ -14,9 +14,12 @@ import styles from './Notes.styles';
 import { GetNotesQuery } from '../../Queries/Queries';
 import { CreateNoteMutation } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
+import { INotes } from '../../Types/Types';
 
 const Notes = () => {
   const { user } = useUser();
+
+  if (user === null) return null;
 
   const [note, setNote] = useState<string>('');
 
@@ -35,7 +38,7 @@ const Notes = () => {
 
   if (error || mutationError) return <Text>'Error!'</Text>;
 
-  const { notes } = data;
+  const { notes }: INotes = data;
 
   const handleSubmit = () => {
     createNote({ variables: { data: { content: note } } });

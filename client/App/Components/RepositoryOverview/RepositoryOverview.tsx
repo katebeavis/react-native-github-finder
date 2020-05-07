@@ -5,15 +5,19 @@ import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
 import styles from '../RepositoryOverview/RepositoryOverview.styles';
 import { useUser } from '../UserContext/UserProvider';
+import { IRepo, NavigationProps } from '../../Types/Types';
 
-const RepositoryOverview = ({ navigation }: any) => {
+const RepositoryOverview = ({ navigation }: NavigationProps) => {
   const { user } = useUser();
+
+  if (user === null) return null;
+
   const { repositories } = user;
 
   return (
     <ScrollView style={styles.container}>
       <Badge avatarUrl={user.avatarUrl} name={user.name} login={user.login} />
-      {repositories.nodes.map((repo: any, index: number) => (
+      {repositories.nodes.map((repo: IRepo, index: number) => (
         <View key={index}>
           <View style={styles.rowContainer}>
             <TouchableHighlight

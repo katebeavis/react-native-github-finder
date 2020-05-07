@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
-import { IUserContext } from './types';
+import { IUserContext } from '../../Types/Types';
 
 const UserContext = createContext<IUserContext>({
   user: null,
-  getUser: null,
-  loading: null,
+  getUser: () => {},
+  loading: false,
   error: null,
 });
 

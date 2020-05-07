@@ -9,6 +9,8 @@ import { useUser } from '../UserContext/UserProvider';
 const Profile = () => {
   const { user } = useUser();
 
+  if (user === null) return null;
+
   const { location, email, followers, following, company, repositories } = user;
   return (
     <ScrollView style={styles.container}>

@@ -3,9 +3,13 @@ import { View, Text, Image, TouchableHighlight } from 'react-native';
 
 import styles from './Overview.styles';
 import { useUser } from '../UserContext/UserProvider';
+import { NavigationProps } from '../../Types/Types';
 
-const Overview = ({ navigation }: any) => {
+const Overview = ({ navigation }: NavigationProps) => {
   const { user } = useUser();
+
+  if (user === null) return null;
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: user.avatarUrl }} style={styles.image} />

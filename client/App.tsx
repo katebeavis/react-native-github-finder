@@ -49,7 +49,9 @@ const App = () => {
             <Stack.Screen
               name='Browser'
               component={Browser}
-              options={({ route }: any) => ({ title: route.params.name })}
+              options={({ route }: any) => ({
+                title: route.params.name,
+              })}
             />
             <Stack.Screen
               name='Notes'
