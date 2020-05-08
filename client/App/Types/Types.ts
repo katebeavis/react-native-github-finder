@@ -45,13 +45,22 @@ export interface INote {
 export interface IUserContext {
   user: IUser | null;
   getUser: (arg: { variables: { username: string } }) => void;
+  userNotFound: boolean;
+  setUserNotFound: (arg: boolean) => void;
   loading: boolean;
   error: ApolloError | undefined;
 }
 
+export interface Error {
+  locations: { column: number; line: number }[];
+  message: string;
+  path: string[];
+  type: string;
+}
+
 type RootStackParamList = {
   Home: undefined;
-  Profile: { params: {} };
+  Profile: undefined;
   Browser: { uri: string; name: string; title: string };
   Overview: undefined;
   RepositoryOverview: undefined;

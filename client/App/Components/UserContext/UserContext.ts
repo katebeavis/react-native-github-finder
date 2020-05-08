@@ -5,6 +5,8 @@ import { IUserContext } from '../../Types/Types';
 const UserContext = createContext<IUserContext>({
   user: null,
   getUser: () => {},
+  userNotFound: false,
+  setUserNotFound: () => {},
   loading: false,
   error: undefined,
 });

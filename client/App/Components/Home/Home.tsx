@@ -8,14 +8,21 @@ import {
 } from 'react-native';
 
 import styles from './Home.styles';
+import { Colours } from '../../Styles/index';
 import { useUser } from '../UserContext/UserProvider';
 import { NavigationProps } from '../../Types/Types';
 
 const Home = ({ navigation }: NavigationProps) => {
   const [username, setUsername] = useState<string>('');
-  const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
-  const { user, getUser, loading, error } = useUser();
+  const {
+    user,
+    getUser,
+    userNotFound,
+    setUserNotFound,
+    loading,
+    error,
+  } = useUser();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -31,18 +38,6 @@ const Home = ({ navigation }: NavigationProps) => {
       navigation.navigate('Overview');
     }
   }, [user]);
-
-  useEffect(() => {
-    if (error && error.graphQLErrors) {
-      const notFoundError = error.graphQLErrors.filter((e: any) => {
-        return e.type === 'NOT_FOUND';
-      });
-
-      if (notFoundError.length > 0) {
-        setUserNotFound(true);
-      }
-    }
-  }, [error]);
 
   const errorMessage = error && userNotFound ? 'User not found!' : 'Error';
 
@@ -71,7 +66,11 @@ const Home = ({ navigation }: NavigationProps) => {
           <Text style={styles.errorText}>{errorMessage}</Text>
         </View>
       )}
-      <ActivityIndicator animating={loading} color={'#111'} size={'large'} />
+      <ActivityIndicator
+        animating={loading}
+        color={Colours.black}
+        size={'large'}
+      />
     </View>
   );
 };
