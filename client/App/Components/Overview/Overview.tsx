@@ -7,12 +7,12 @@ import { NavigationProps } from '../../Types/Types';
 
 const Overview = ({ navigation }: NavigationProps) => {
   const { user } = useUser();
-
   if (user === null) return null;
+  const { avatarUrl } = user;
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: user.avatarUrl }} style={styles.image} />
+      <Image source={{ uri: avatarUrl }} style={styles.image} />
       <TouchableHighlight
         onPress={() => navigation.navigate('Profile')}
         underlayColor={'#88D4F5'}

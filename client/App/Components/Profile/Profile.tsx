@@ -8,13 +8,22 @@ import { useUser } from '../UserContext/UserProvider';
 
 const Profile = () => {
   const { user } = useUser();
-
   if (user === null) return null;
+  const {
+    avatarUrl,
+    name,
+    login,
+    location,
+    email,
+    followers,
+    following,
+    company,
+    repositories,
+  } = user;
 
-  const { location, email, followers, following, company, repositories } = user;
   return (
     <ScrollView style={styles.container}>
-      <Badge avatarUrl={user.avatarUrl} name={user.name} login={user.login} />
+      <Badge avatarUrl={avatarUrl} name={name} login={login} />
       <View style={styles.rowContainer}>
         <Text style={styles.rowTitle}>Location</Text>
         <Text style={styles.rowContent}>{location}</Text>

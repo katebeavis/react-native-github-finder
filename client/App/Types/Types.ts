@@ -61,7 +61,7 @@ export interface Error {
 type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
-  Browser: { uri: string; name: string; title: string };
+  Browser: { uri: string; name: string };
   Overview: undefined;
   RepositoryOverview: undefined;
   Notes: undefined;

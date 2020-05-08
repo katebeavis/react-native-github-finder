@@ -9,14 +9,12 @@ import { IRepo, NavigationProps } from '../../Types/Types';
 
 const RepositoryOverview = ({ navigation }: NavigationProps) => {
   const { user } = useUser();
-
   if (user === null) return null;
-
-  const { repositories } = user;
+  const { avatarUrl, name, login, repositories } = user;
 
   return (
     <ScrollView style={styles.container}>
-      <Badge avatarUrl={user.avatarUrl} name={user.name} login={user.login} />
+      <Badge avatarUrl={avatarUrl} name={name} login={login} />
       {repositories.nodes.map((repo: IRepo, index: number) => (
         <View key={index}>
           <View style={styles.rowContainer}>

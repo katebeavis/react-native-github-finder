@@ -18,11 +18,8 @@ import { INotes } from '../../Types/Types';
 
 const Notes = () => {
   const { user } = useUser();
-
   if (user === null) return null;
-
   const { name, avatarUrl, login } = user;
-
   const [note, setNote] = useState<string>('');
 
   const { loading, error, data } = useQuery(GetNotesQuery, {
