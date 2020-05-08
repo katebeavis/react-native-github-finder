@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   TextInput,
   Alert,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
@@ -20,6 +21,7 @@ import {
   DeleteNoteMutation,
 } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
+import { Colours } from '../../Styles/index';
 
 const Notes = () => {
   const { user } = useUser();
@@ -75,59 +77,66 @@ const Notes = () => {
     );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={data?.notes}
-        ListHeaderComponent={
-          <Badge avatarUrl={avatarUrl} name={name} login={login} />
-        }
-        ListEmptyComponent={
-          <View>
-            <View style={styles.rowContainer}>
-              <Text>No notes here yet 😞</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={'padding'}
+      enabled={true}
+    >
+      <View style={styles.container}>
+        <FlatList
+          data={data?.notes}
+          ListHeaderComponent={
+            <Badge avatarUrl={avatarUrl} name={name} login={login} />
+          }
+          ListEmptyComponent={
+            <View>
+              <View style={styles.rowContainer}>
+                <Text>No notes here yet 😞</Text>
+              </View>
             </View>
-          </View>
-        }
-        renderItem={({ item }) => (
-          <View>
-            <View style={styles.rowContainer}>
-              <Text style={styles.rowText}>{item.content}</Text>
-              <TouchableHighlight
-                style={styles.smallButton}
-                onPress={() => deleteAlert(item.id)}
-                underlayColor='#88D4F5'
-              >
-                <Text style={styles.smallButtonText}>Delete</Text>
-              </TouchableHighlight>
+          }
+          renderItem={({ item }) => (
+            <View>
+              <View style={styles.rowContainer}>
+                <Text style={styles.rowText}>{item.content}</Text>
+                <TouchableHighlight
+                  style={styles.smallButton}
+                  onPress={() => deleteAlert(item.id)}
+                  underlayColor='#88D4F5'
+                >
+                  <Text style={styles.smallButtonText}>Delete</Text>
+                </TouchableHighlight>
+              </View>
+              <Separator />
             </View>
-            <Separator />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+        <View>
+          {(error || createMutationError || deleteMutationError) && (
+            <View style={sharedStyles.errorContainer}>
+              <Text style={sharedStyles.errorText}>Error!</Text>
+            </View>
+          )}
+          <View style={styles.footerContainer}>
+            <TextInput
+              style={styles.searchInput}
+              value={note}
+              onChangeText={(input) => setNote(input)}
+              placeholder='New Note'
+            />
+            <TouchableHighlight
+              style={styles.button}
+              onPress={handleSubmit}
+              underlayColor='#88D4F5'
+            >
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableHighlight>
           </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-      <View>
-        {(error || createMutationError || deleteMutationError) && (
-          <View style={sharedStyles.errorContainer}>
-            <Text style={sharedStyles.errorText}>Error!</Text>
-          </View>
-        )}
-        <View style={styles.footerContainer}>
-          <TextInput
-            style={styles.searchInput}
-            value={note}
-            onChangeText={(input) => setNote(input)}
-            placeholder='New Note'
-          />
-          <TouchableHighlight
-            style={styles.button}
-            onPress={handleSubmit}
-            underlayColor='#88D4F5'
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableHighlight>
         </View>
       </View>
-    </View>
+      <View style={{ backgroundColor: Colours.blue, height: 80 }}></View>
+    </KeyboardAvoidingView>
   );
 };
 

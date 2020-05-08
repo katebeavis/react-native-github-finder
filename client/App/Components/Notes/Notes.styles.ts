@@ -12,18 +12,20 @@ const styles = StyleSheet.create({
     color: Colours.white,
   },
   smallButtonText: {
-    ...Typography.extraSmall,
+    ...Typography.small,
     color: Colours.white,
+    letterSpacing: 0.1,
   },
   button: {
     height: 60,
-    backgroundColor: Colours.blue,
+    backgroundColor: Colours.purple,
     flex: 3,
     alignItems: 'center',
     justifyContent: 'center',
   },
   rowText: {
     flex: 4,
+    ...Typography.medium,
   },
   smallButton: {
     height: 25,
@@ -31,6 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 2.5,
   },
   searchInput: {
     height: 60,
