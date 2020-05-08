@@ -21,6 +21,8 @@ const Notes = () => {
 
   if (user === null) return null;
 
+  const { name, avatarUrl, login } = user;
+
   const [note, setNote] = useState<string>('');
 
   const { loading, error, data } = useQuery(GetNotesQuery, {
@@ -41,7 +43,7 @@ const Notes = () => {
   const { notes }: INotes = data;
 
   const handleSubmit = () => {
-    createNote({ variables: { data: { content: note } } });
+    createNote({ variables: { data: { content: note, username: login } } });
     setNote('');
   };
 
@@ -50,11 +52,7 @@ const Notes = () => {
       <FlatList
         data={notes}
         ListHeaderComponent={
-          <Badge
-            avatarUrl={user.avatarUrl}
-            name={user.name}
-            login={user.login}
-          />
+          <Badge avatarUrl={avatarUrl} name={name} login={login} />
         }
         renderItem={({ item }) => (
           <View>
