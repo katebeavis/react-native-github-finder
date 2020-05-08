@@ -1,5 +1,7 @@
 import React from 'react';
 import { ScrollView, View, Text, TouchableHighlight } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
@@ -27,15 +29,28 @@ const RepositoryOverview = ({ navigation }: NavigationProps) => {
               }
               underlayColor={'transparent'}
             >
-              <Text style={styles.name}>{repo.name}</Text>
+              <View style={styles.repoContainer}>
+                <Text style={styles.name}>{repo.name}</Text>
+
+                <View style={styles.starsContainer}>
+                  <View style={styles.stars}>
+                    <Text>
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        style={{ marginRight: 8 }}
+                      />
+                      Star
+                    </Text>
+                  </View>
+                  <View style={styles.starsCount}>
+                    <Text>{repo.stargazers.totalCount || 0}</Text>
+                  </View>
+                </View>
+              </View>
             </TouchableHighlight>
             {repo.description && (
               <Text style={styles.description}>{repo.description}</Text>
             )}
-            <Text style={styles.stars}>
-              url: {repo.url}
-              Stars: {repo.stargazers.totalCount || 0}
-            </Text>
           </View>
           <Separator />
         </View>

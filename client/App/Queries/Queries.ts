@@ -16,7 +16,10 @@ export const UserQuery = gql`
       }
       email
       bio
-      repositories(first: 10, orderBy: { field: UPDATED_AT, direction: DESC }) {
+      repositories(
+        first: 100
+        orderBy: { field: UPDATED_AT, direction: DESC }
+      ) {
         totalCount
         nodes {
           name

@@ -12,19 +12,35 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  repoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 5,
+  },
   name: {
     color: Colours.blue,
     ...Typography.medium,
-    paddingBottom: 5,
   },
-  stars: {
+  starsContainer: {
     color: Colors.blue,
     ...Typography.extraSmall,
-    paddingBottom: 5,
+    marginLeft: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colours.darkGrey,
+    borderRadius: 2.5,
+    flexDirection: 'row',
   },
+  stars: {
+    padding: 5,
+    borderRightWidth: 1,
+    borderRightColor: Colours.darkGrey,
+    backgroundColor: Colours.grey,
+  },
+  starsCount: { padding: 5 },
   description: {
     ...Typography.extraSmall,
-    color: Colours.blue,
+    color: Colours.black,
     paddingBottom: 5,
   },
 });
