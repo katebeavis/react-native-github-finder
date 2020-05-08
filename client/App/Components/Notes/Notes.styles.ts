@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import { Colours, Typography } from '../../Styles';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +13,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 60,
-    backgroundColor: Colors.blue,
+    backgroundColor: Colours.blue,
     flex: 3,
     alignItems: 'center',
     justifyContent: 'center',

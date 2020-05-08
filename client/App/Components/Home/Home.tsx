@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  TouchableHighlight,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, View, TextInput, TouchableHighlight } from 'react-native';
 
 import styles from './Home.styles';
 import { Colours } from '../../Styles/index';
 import { useUser } from '../UserContext/UserProvider';
 import { NavigationProps } from '../../Types/Types';
+import Loading from '../Loading/Loading';
 
 const Home = ({ navigation }: NavigationProps) => {
   const [username, setUsername] = useState<string>('');
@@ -56,7 +51,8 @@ const Home = ({ navigation }: NavigationProps) => {
       <TouchableHighlight
         style={styles.button}
         onPress={handleSubmit}
-        underlayColor={'white'}
+        underlayColor={Colours.grey}
+        disabled={loading || username.length === 0}
         accessibilityLabel={'Submit'}
       >
         <Text style={styles.buttonText}>Submit</Text>
@@ -66,11 +62,7 @@ const Home = ({ navigation }: NavigationProps) => {
           <Text style={styles.errorText}>{errorMessage}</Text>
         </View>
       )}
-      <ActivityIndicator
-        animating={loading}
-        color={Colours.black}
-        size={'large'}
-      />
+      <Loading loading={loading} />
     </View>
   );
 };

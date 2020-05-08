@@ -10,11 +10,12 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
+
 import styles from './Notes.styles';
+import sharedStyles from '../../Styles/shared';
 import { GetNotesQuery } from '../../Queries/Queries';
 import { CreateNoteMutation } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
-import { INotes } from '../../Types/Types';
 
 const Notes = () => {
   const { user } = useUser();
@@ -22,25 +23,21 @@ const Notes = () => {
   const { name, avatarUrl, login } = user;
   const [note, setNote] = useState<string>('');
 
-  const { loading, error, data } = useQuery(GetNotesQuery, {
+  const { error, data } = useQuery(GetNotesQuery, {
     errorPolicy: 'all',
     variables: { username: login },
   });
 
-  const [
-    createNote,
-    { loading: mutationLoading, error: mutationError },
-  ] = useMutation(CreateNoteMutation, {
-    refetchQueries: () => [
-      { query: GetNotesQuery, variables: { username: login } },
-    ],
-  });
-
-  if (loading || mutationLoading) return <Text>'Loading...'</Text>;
+  const [createNote, { error: mutationError }] = useMutation(
+    CreateNoteMutation,
+    {
+      refetchQueries: () => [
+        { query: GetNotesQuery, variables: { username: login } },
+      ],
+    }
+  );
 
   if (error || mutationError) return <Text>'Error!'</Text>;
-
-  const { notes }: INotes = data;
 
   const handleSubmit = () => {
     createNote({ variables: { data: { content: note, username: login } } });
@@ -50,7 +47,7 @@ const Notes = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={notes}
+        data={data?.notes}
         ListHeaderComponent={
           <Badge avatarUrl={avatarUrl} name={name} login={login} />
         }
@@ -72,6 +69,11 @@ const Notes = () => {
         keyExtractor={(item) => item.id}
       />
       <View>
+        {(error || mutationError) && (
+          <View style={sharedStyles.errorContainer}>
+            <Text style={sharedStyles.errorText}>Error!</Text>
+          </View>
+        )}
         <View style={styles.footerContainer}>
           <TextInput
             style={styles.searchInput}

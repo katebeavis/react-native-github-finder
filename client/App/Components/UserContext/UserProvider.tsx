@@ -32,7 +32,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       const notFoundError = errorArr.errors.filter((err: Error) => {
         return err.type === NOT_FOUND;
       });
-
       if (notFoundError.length > 0) {
         setUserNotFound(true);
       }

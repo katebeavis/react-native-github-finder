@@ -58,6 +58,11 @@ export interface Error {
   type: string;
 }
 
+export enum Size {
+  large = 'large',
+  small = 'small',
+}
+
 type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
