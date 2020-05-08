@@ -27,13 +27,16 @@ const Notes = () => {
 
   const { loading, error, data } = useQuery(GetNotesQuery, {
     errorPolicy: 'all',
+    variables: { username: login },
   });
 
   const [
     createNote,
     { loading: mutationLoading, error: mutationError },
   ] = useMutation(CreateNoteMutation, {
-    refetchQueries: () => [{ query: GetNotesQuery }],
+    refetchQueries: () => [
+      { query: GetNotesQuery, variables: { username: login } },
+    ],
   });
 
   if (loading || mutationLoading) return <Text>'Loading...'</Text>;
@@ -53,6 +56,13 @@ const Notes = () => {
         data={notes}
         ListHeaderComponent={
           <Badge avatarUrl={avatarUrl} name={name} login={login} />
+        }
+        ListEmptyComponent={
+          <View>
+            <View style={styles.rowContainer}>
+              <Text>No notes here yet 😞</Text>
+            </View>
+          </View>
         }
         renderItem={({ item }) => (
           <View>

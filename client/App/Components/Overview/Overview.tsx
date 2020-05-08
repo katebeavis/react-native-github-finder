@@ -32,7 +32,7 @@ const Overview = ({ navigation }: NavigationProps) => {
         underlayColor={'#88D4F5'}
         style={styles.purpleButton}
       >
-        <Text style={styles.buttonText}>Add notes</Text>
+        <Text style={styles.buttonText}>Notes</Text>
       </TouchableHighlight>
     </View>
   );

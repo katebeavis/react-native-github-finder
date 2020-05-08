@@ -32,8 +32,8 @@ export const UserQuery = gql`
 `;
 
 export const GetNotesQuery = gql`
-  query GetNotesQuery {
-    notes {
+  query GetNotesQuery($username: String!) {
+    notes(where: { username: $username }) {
       id
       content
     }
