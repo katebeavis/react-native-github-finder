@@ -11,10 +11,24 @@ const styles = StyleSheet.create({
     ...Typography.medium,
     color: Colours.white,
   },
+  smallButtonText: {
+    ...Typography.extraSmall,
+    color: Colours.white,
+  },
   button: {
     height: 60,
     backgroundColor: Colours.blue,
     flex: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rowText: {
+    flex: 4,
+  },
+  smallButton: {
+    height: 25,
+    backgroundColor: Colours.red,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -26,7 +40,10 @@ const styles = StyleSheet.create({
     flex: 10,
   },
   rowContainer: {
+    flexDirection: 'row',
     padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   footerContainer: {
     backgroundColor: Colours.grey,

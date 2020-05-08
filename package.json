@@ -13,6 +13,7 @@
     "test": "yarn test:client &&  yarn test:server jest --passWithNoTests",
     "test:client": "cd client && yarn test",
     "test:server": "cd server && yarn test",
-    "deploy": "cd server && yarn deploy"
+    "deploy": "cd server && yarn deploy",
+    "generate": "cd server && yarn generate"
   }
 }

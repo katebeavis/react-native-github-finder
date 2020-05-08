@@ -5,7 +5,8 @@
     "dev": "concurrently \"NODE_TLS_REJECT_UNAUTHORIZED=0 yarn start\" \"yarn playground\"",
     "playground": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma playground",
     "test": "jest --config='src/jest/config.js'",
-    "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy"
+    "deploy": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma deploy",
+    "generate": "NODE_TLS_REJECT_UNAUTHORIZED=0 prisma generate"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",

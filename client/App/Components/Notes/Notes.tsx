@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -14,7 +14,10 @@ import Separator from '../Helpers/Separator';
 import styles from './Notes.styles';
 import sharedStyles from '../../Styles/shared';
 import { GetNotesQuery } from '../../Queries/Queries';
-import { CreateNoteMutation } from '../../Mutations/Mutations';
+import {
+  CreateNoteMutation,
+  DeleteNoteMutation,
+} from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
 
 const Notes = () => {
@@ -28,7 +31,7 @@ const Notes = () => {
     variables: { username: login },
   });
 
-  const [createNote, { error: mutationError }] = useMutation(
+  const [createNote, { error: createMutationError }] = useMutation(
     CreateNoteMutation,
     {
       refetchQueries: () => [
@@ -37,11 +40,22 @@ const Notes = () => {
     }
   );
 
-  if (error || mutationError) return <Text>'Error!'</Text>;
+  const [deleteNote, { error: deleteMutationError }] = useMutation(
+    DeleteNoteMutation,
+    {
+      refetchQueries: () => [
+        { query: GetNotesQuery, variables: { username: login } },
+      ],
+    }
+  );
 
   const handleSubmit = () => {
     createNote({ variables: { data: { content: note, username: login } } });
     setNote('');
+  };
+
+  const handleDelete = (id: string) => {
+    deleteNote({ variables: { id } });
   };
 
   return (
@@ -61,7 +75,14 @@ const Notes = () => {
         renderItem={({ item }) => (
           <View>
             <View style={styles.rowContainer}>
-              <Text>{item.content}</Text>
+              <Text style={styles.rowText}>{item.content}</Text>
+              <TouchableHighlight
+                style={styles.smallButton}
+                onPress={() => handleDelete(item.id)}
+                underlayColor='#88D4F5'
+              >
+                <Text style={styles.smallButtonText}>Delete</Text>
+              </TouchableHighlight>
             </View>
             <Separator />
           </View>
@@ -69,7 +90,7 @@ const Notes = () => {
         keyExtractor={(item) => item.id}
       />
       <View>
-        {(error || mutationError) && (
+        {(error || createMutationError || deleteMutationError) && (
           <View style={sharedStyles.errorContainer}>
             <Text style={sharedStyles.errorText}>Error!</Text>
           </View>

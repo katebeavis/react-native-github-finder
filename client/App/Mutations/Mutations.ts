@@ -8,3 +8,11 @@ export const CreateNoteMutation = gql`
     }
   }
 `;
+
+export const DeleteNoteMutation = gql`
+  mutation DeleteNoteMutation($id: ID!) {
+    deleteNote(where: { id: $id }) {
+      content
+    }
+  }
+`;
