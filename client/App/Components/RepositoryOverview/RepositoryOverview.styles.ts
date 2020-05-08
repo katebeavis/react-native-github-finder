@@ -21,23 +21,6 @@ const styles = StyleSheet.create({
     color: Colours.blue,
     ...Typography.medium,
   },
-  starsContainer: {
-    color: Colors.blue,
-    ...Typography.extraSmall,
-    marginLeft: 10,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colours.darkGrey,
-    borderRadius: 2.5,
-    flexDirection: 'row',
-  },
-  stars: {
-    padding: 5,
-    borderRightWidth: 1,
-    borderRightColor: Colours.darkGrey,
-    backgroundColor: Colours.grey,
-  },
-  starsCount: { padding: 5 },
   description: {
     ...Typography.extraSmall,
     color: Colours.black,
