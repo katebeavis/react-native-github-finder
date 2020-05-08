@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableHighlight,
   TextInput,
+  Alert,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
@@ -58,6 +59,21 @@ const Notes = () => {
     deleteNote({ variables: { id } });
   };
 
+  const deleteAlert = (id: string) =>
+    Alert.alert(
+      'Delete note',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Delete', onPress: () => handleDelete(id) },
+      ],
+      { cancelable: false }
+    );
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -78,7 +94,7 @@ const Notes = () => {
               <Text style={styles.rowText}>{item.content}</Text>
               <TouchableHighlight
                 style={styles.smallButton}
-                onPress={() => handleDelete(item.id)}
+                onPress={() => deleteAlert(item.id)}
                 underlayColor='#88D4F5'
               >
                 <Text style={styles.smallButtonText}>Delete</Text>
