@@ -11,11 +11,6 @@ const styles = StyleSheet.create({
     ...Typography.medium,
     color: Colours.white,
   },
-  smallButtonText: {
-    ...Typography.small,
-    color: Colours.white,
-    letterSpacing: 0.1,
-  },
   button: {
     height: 60,
     backgroundColor: Colours.purple,
@@ -26,14 +21,6 @@ const styles = StyleSheet.create({
   rowText: {
     flex: 4,
     ...Typography.medium,
-  },
-  smallButton: {
-    height: 25,
-    backgroundColor: Colours.red,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 2.5,
   },
   searchInput: {
     height: 60,
@@ -47,6 +34,11 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 0.8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   footerContainer: {
     backgroundColor: Colours.grey,

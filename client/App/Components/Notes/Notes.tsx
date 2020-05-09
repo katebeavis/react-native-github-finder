@@ -12,6 +12,7 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Badge from '../Badge/Badge';
 import Separator from '../Helpers/Separator';
+import Button from '../Button/Button';
 
 import styles from './Notes.styles';
 import sharedStyles from '../../Styles/shared';
@@ -22,6 +23,7 @@ import {
 } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
 import { Colours } from '../../Styles/index';
+import { ButtonType } from '../Button/Types';
 
 const Notes = () => {
   const { user } = useUser();
@@ -38,7 +40,10 @@ const Notes = () => {
     CreateNoteMutation,
     {
       refetchQueries: () => [
-        { query: GetNotesQuery, variables: { username: login } },
+        {
+          query: GetNotesQuery,
+          variables: { username: login },
+        },
       ],
     }
   );
@@ -47,13 +52,20 @@ const Notes = () => {
     DeleteNoteMutation,
     {
       refetchQueries: () => [
-        { query: GetNotesQuery, variables: { username: login } },
+        {
+          query: GetNotesQuery,
+          variables: { username: login },
+        },
       ],
     }
   );
 
   const handleSubmit = () => {
-    createNote({ variables: { data: { content: note, username: login } } });
+    createNote({
+      variables: {
+        data: { content: note, username: login },
+      },
+    });
     setNote('');
   };
 
@@ -99,13 +111,16 @@ const Notes = () => {
             <View>
               <View style={styles.rowContainer}>
                 <Text style={styles.rowText}>{item.content}</Text>
-                <TouchableHighlight
-                  style={styles.smallButton}
-                  onPress={() => deleteAlert(item.id)}
-                  underlayColor='#88D4F5'
-                >
-                  <Text style={styles.smallButtonText}>Delete</Text>
-                </TouchableHighlight>
+                <View style={styles.buttonContainer}>
+                  <Button
+                    type={ButtonType.EDIT}
+                    action={() => deleteAlert(item.id)}
+                  />
+                  <Button
+                    type={ButtonType.DELETE}
+                    action={() => deleteAlert(item.id)}
+                  />
+                </View>
               </View>
               <Separator />
             </View>
@@ -135,7 +150,12 @@ const Notes = () => {
           </View>
         </View>
       </View>
-      <View style={{ backgroundColor: Colours.blue, height: 80 }}></View>
+      <View
+        style={{
+          backgroundColor: Colours.blue,
+          height: 80,
+        }}
+      ></View>
     </KeyboardAvoidingView>
   );
 };
