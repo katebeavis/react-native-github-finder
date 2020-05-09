@@ -1,14 +1,10 @@
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
-
-export enum ButtonType {
-  DELETE = 'delete',
-  EDIT = 'edit',
-}
+import { ActionType } from '../../Types/Types';
 
 export type ButtonStylingMapping = {
-  [key in ButtonType]: string;
+  [key in ActionType]: string;
 };
 
 export type ButtonIconMapping = {
-  [key in ButtonType]: IconDefinition;
+  [key in ActionType]: IconDefinition;
 };

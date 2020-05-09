@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -24,15 +24,11 @@ import {
 } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
 import { Colours } from '../../Styles/index';
-import { ButtonType } from '../Button/Types';
+import { ActionType } from '../../Types/Types';
 
 const Notes = () => {
   const { user } = useUser();
   if (user === null) return null;
-  enum ActionType {
-    CREATE = 'CREATE',
-    EDIT = 'EDIT',
-  }
   const { name, avatarUrl, login } = user;
   const [note, setNote] = useState<string>('');
   const [id, setId] = useState<string>('');
@@ -43,46 +39,48 @@ const Notes = () => {
     variables: { username: login },
   });
 
-  const [createNoteMutation, { error: createMutationError }] = useMutation(
-    CreateNoteMutation,
-    {
-      refetchQueries: () => [
-        {
-          query: GetNotesQuery,
-          variables: { username: login },
-        },
-      ],
-    }
-  );
+  const [
+    createNoteMutation,
+    { loading: createNoteLoading, error: createMutationError },
+  ] = useMutation(CreateNoteMutation, {
+    refetchQueries: () => [
+      {
+        query: GetNotesQuery,
+        variables: { username: login },
+      },
+    ],
+  });
 
-  const [deleteNoteMutation, { error: deleteMutationError }] = useMutation(
-    DeleteNoteMutation,
-    {
-      refetchQueries: () => [
-        {
-          query: GetNotesQuery,
-          variables: { username: login },
-        },
-      ],
-    }
-  );
+  const [
+    deleteNoteMutation,
+    { loading: deleteNoteLoading, error: deleteMutationError },
+  ] = useMutation(DeleteNoteMutation, {
+    refetchQueries: () => [
+      {
+        query: GetNotesQuery,
+        variables: { username: login },
+      },
+    ],
+  });
 
-  const [updateNoteMutation, { error: updateMutationError }] = useMutation(
-    UpdateNoteMutation,
-    {
-      refetchQueries: () => [
-        {
-          query: GetNotesQuery,
-          variables: { username: login },
-        },
-      ],
-    }
-  );
+  const [
+    updateNoteMutation,
+    { loading: updateNoteLoading, error: updateMutationError },
+  ] = useMutation(UpdateNoteMutation, {
+    refetchQueries: () => [
+      {
+        query: GetNotesQuery,
+        variables: { username: login },
+      },
+    ],
+  });
 
-  const handleSubmit = () => {
-    action === ActionType.CREATE ? createNote() : updateNote();
+  useEffect(() => {
     resetNote();
-  };
+  }, [createNoteLoading, deleteNoteLoading, updateNoteLoading]);
+
+  const handleSubmit = () =>
+    action === ActionType.CREATE ? createNote() : updateNote();
 
   const createNote = () =>
     createNoteMutation({
@@ -118,10 +116,10 @@ const Notes = () => {
       { cancelable: false }
     );
 
-  const handleEdit = (id: string, content: string) => {
+  const handleUpdate = (id: string, content: string) => {
     setNote(content);
     setId(id);
-    setAction(ActionType.EDIT);
+    setAction(ActionType.UPDATE);
   };
 
   const buttonText = () => (action === ActionType.CREATE ? 'Create' : 'Update');
@@ -151,11 +149,11 @@ const Notes = () => {
                 <Text style={styles.rowText}>{item.content}</Text>
                 <View style={styles.buttonContainer}>
                   <Button
-                    type={ButtonType.EDIT}
-                    action={() => handleEdit(item.id, item.content)}
+                    type={ActionType.UPDATE}
+                    action={() => handleUpdate(item.id, item.content)}
                   />
                   <Button
-                    type={ButtonType.DELETE}
+                    type={ActionType.DELETE}
                     action={() => deleteAlert(item.id)}
                   />
                 </View>

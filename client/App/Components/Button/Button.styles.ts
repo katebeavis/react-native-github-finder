@@ -5,13 +5,15 @@ import { Colours } from '../../Styles';
 import { ButtonStylingMapping, ButtonIconMapping } from './Types';
 
 export const backgroundColors: ButtonStylingMapping = {
-  delete: Colours.red,
-  edit: Colours.paleBlue,
+  DELETE: Colours.red,
+  UPDATE: Colours.paleBlue,
+  CREATE: Colours.purple,
 };
 
 export const icon: ButtonIconMapping = {
-  delete: faTrashAlt,
-  edit: faEdit,
+  DELETE: faTrashAlt,
+  UPDATE: faEdit,
+  CREATE: faEdit,
 };
 
 const styles = StyleSheet.create({

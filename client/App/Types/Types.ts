@@ -63,6 +63,12 @@ export enum Size {
   small = 'small',
 }
 
+export enum ActionType {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
+}
+
 type RootStackParamList = {
   Home: undefined;
   Profile: undefined;

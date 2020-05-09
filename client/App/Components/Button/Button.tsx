@@ -3,11 +3,11 @@ import { TouchableHighlight } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import styles, { backgroundColors, icon } from './Button.styles';
-import { ButtonType } from './Types';
+import { ActionType } from '../../Types/Types';
 import { Colours } from '../../Styles/index';
 
 interface IButton {
-  type: ButtonType;
+  type: ActionType;
   action: () => void;
 }
 
