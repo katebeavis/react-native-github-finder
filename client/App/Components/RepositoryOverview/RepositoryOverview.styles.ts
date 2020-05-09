@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 import { Colours, Typography } from '../../Styles';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   container: {

@@ -20,6 +20,7 @@ import { GetNotesQuery } from '../../Queries/Queries';
 import {
   CreateNoteMutation,
   DeleteNoteMutation,
+  UpdateNoteMutation,
 } from '../../Mutations/Mutations';
 import { useUser } from '../UserContext/UserProvider';
 import { Colours } from '../../Styles/index';
@@ -28,15 +29,21 @@ import { ButtonType } from '../Button/Types';
 const Notes = () => {
   const { user } = useUser();
   if (user === null) return null;
+  enum ActionType {
+    CREATE = 'CREATE',
+    EDIT = 'EDIT',
+  }
   const { name, avatarUrl, login } = user;
   const [note, setNote] = useState<string>('');
+  const [id, setId] = useState<string>('');
+  const [action, setAction] = useState<ActionType>(ActionType.CREATE);
 
   const { error, data } = useQuery(GetNotesQuery, {
     errorPolicy: 'all',
     variables: { username: login },
   });
 
-  const [createNote, { error: createMutationError }] = useMutation(
+  const [createNoteMutation, { error: createMutationError }] = useMutation(
     CreateNoteMutation,
     {
       refetchQueries: () => [
@@ -48,7 +55,7 @@ const Notes = () => {
     }
   );
 
-  const [deleteNote, { error: deleteMutationError }] = useMutation(
+  const [deleteNoteMutation, { error: deleteMutationError }] = useMutation(
     DeleteNoteMutation,
     {
       refetchQueries: () => [
@@ -60,18 +67,41 @@ const Notes = () => {
     }
   );
 
+  const [updateNoteMutation, { error: updateMutationError }] = useMutation(
+    UpdateNoteMutation,
+    {
+      refetchQueries: () => [
+        {
+          query: GetNotesQuery,
+          variables: { username: login },
+        },
+      ],
+    }
+  );
+
   const handleSubmit = () => {
-    createNote({
+    action === ActionType.CREATE ? createNote() : updateNote();
+    resetNote();
+  };
+
+  const createNote = () =>
+    createNoteMutation({
       variables: {
         data: { content: note, username: login },
       },
     });
+
+  const updateNote = () =>
+    updateNoteMutation({ variables: { data: { content: note }, id } });
+
+  const resetNote = () => {
     setNote('');
+    setAction(ActionType.CREATE);
+    setId('');
   };
 
-  const handleDelete = (id: string) => {
-    deleteNote({ variables: { id } });
-  };
+  const handleDelete = (id: string) =>
+    deleteNoteMutation({ variables: { id } });
 
   const deleteAlert = (id: string) =>
     Alert.alert(
@@ -87,6 +117,14 @@ const Notes = () => {
       ],
       { cancelable: false }
     );
+
+  const handleEdit = (id: string, content: string) => {
+    setNote(content);
+    setId(id);
+    setAction(ActionType.EDIT);
+  };
+
+  const buttonText = () => (action === ActionType.CREATE ? 'Create' : 'Update');
 
   return (
     <KeyboardAvoidingView
@@ -114,7 +152,7 @@ const Notes = () => {
                 <View style={styles.buttonContainer}>
                   <Button
                     type={ButtonType.EDIT}
-                    action={() => deleteAlert(item.id)}
+                    action={() => handleEdit(item.id, item.content)}
                   />
                   <Button
                     type={ButtonType.DELETE}
@@ -128,7 +166,10 @@ const Notes = () => {
           keyExtractor={(item) => item.id}
         />
         <View>
-          {(error || createMutationError || deleteMutationError) && (
+          {(error ||
+            createMutationError ||
+            deleteMutationError ||
+            updateMutationError) && (
             <View style={sharedStyles.errorContainer}>
               <Text style={sharedStyles.errorText}>Error!</Text>
             </View>
@@ -143,9 +184,11 @@ const Notes = () => {
             <TouchableHighlight
               style={styles.button}
               onPress={handleSubmit}
-              underlayColor='#88D4F5'
+              disabled={note.length === 0}
+              underlayColor={Colours.paleBlue}
+              accessibilityLabel={buttonText()}
             >
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={styles.buttonText}>{buttonText()}</Text>
             </TouchableHighlight>
           </View>
         </View>

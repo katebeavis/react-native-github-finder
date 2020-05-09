@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 import { Colours, Typography } from '../../Styles';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
   starsContainer: {
-    color: Colors.blue,
+    color: Colours.blue,
     ...Typography.extraSmall,
     marginLeft: 10,
     alignItems: 'center',

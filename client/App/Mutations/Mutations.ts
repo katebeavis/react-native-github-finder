@@ -16,3 +16,11 @@ export const DeleteNoteMutation = gql`
     }
   }
 `;
+
+export const UpdateNoteMutation = gql`
+  mutation UpdateNoteMutation($data: NoteUpdateInput!, $id: ID!) {
+    updateNote(data: $data, where: { id: $id }) {
+      content
+    }
+  }
+`;

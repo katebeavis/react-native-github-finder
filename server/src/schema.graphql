@@ -7,4 +7,5 @@ type Query {
 type Mutation {
   createNote(data: NoteCreateInput!): Note!
   deleteNote(where: NoteWhereUniqueInput!): Note
+  updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
 }
