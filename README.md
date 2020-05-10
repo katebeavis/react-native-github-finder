@@ -23,7 +23,7 @@ $ cd server && prisma init
 
 You will be asked to login, choose demo server, a region & name of your choosing, dev for stage and Prisma TypeScript Client for programming language.
 
-In `server/primsa.yml` add a post deploy hook
+In `server/prisma.yml` add a post deploy hook
 
 ```
 # Deploy hook
