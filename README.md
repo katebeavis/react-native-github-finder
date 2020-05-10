@@ -1,6 +1,6 @@
 # Github Note Taker [![Dependabot Status](https://badgen.net/dependabot/katebeavis/react-native-github-finder/260267900?icon=dependabot)](https://app.dependabot.com/accounts/katebeavis/repos/260267900)
 
-A React Native app CRUD app that allows the user to search for Github users via their username, view profile information, view repositories and add/edit/delete notes about that user.
+A React Native CRUD app that allows the user to search for Github users via their username, view profile information, view repositories and add/edit/delete notes about that user.
 
 Uses Typescript, GraphQL, Apollo and Prisma to store data.
 
