@@ -12,7 +12,7 @@ $ yarn all
 $ touch server/.env
 ```
 
-#### Setting up a Prisma db
+### Setting up a Prisma db
 
 Sign up for an account at https://app.prisma.io/signup
 
@@ -80,13 +80,13 @@ For `PRISMA_URL` replace with your http endpoint which can be found in your Pris
 
 For the `GITHUB_TOKEN` follow the steps here https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql Select the `repo, user` scopes.
 
-#### Setting up expo
+### Setting up expo
 
 You will need to set up expo
 
 `$ npm install --global expo-cli`
 
-If you want to run the app on your phone you will need to download the expo app
+If you want to run the app on your phone you will need to download the expo app.
 
 ## Running the app
 
