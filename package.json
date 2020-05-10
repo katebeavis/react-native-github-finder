@@ -14,6 +14,7 @@
     "test:client": "cd client && yarn test",
     "test:server": "cd server && yarn test",
     "deploy": "cd server && yarn deploy",
-    "generate": "cd server && yarn generate"
+    "generate": "cd server && yarn generate",
+    "all": "yarn && cd client && yarn && cd .. && cd server && yarn && cd .."
   }
 }
