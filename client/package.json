@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
+    "@fortawesome/fontawesome-common-types": "^0.2.28",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-native-fontawesome": "^0.2.4",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/native": "^5.1.5",
     "@react-navigation/stack": "^5.2.10",
-    "@types/react-native-dotenv": "^0.2.0",
     "apollo-boost": "^0.4.7",
     "expo": "~37.0.3",
     "graphql": "^15.0.0",
@@ -23,14 +23,11 @@
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
-    "react-native-dotenv": "^0.2.0",
     "react-native-gesture-handler": "~1.6.0",
-    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
     "react-native-svg": "11.0.1",
-    "react-native-webview": "8.1.1",
-    "ts-loader": "^7.0.2"
+    "react-native-webview": "8.1.1"
   },
   "devDependencies": {
     "@types/react": "~16.9.23",

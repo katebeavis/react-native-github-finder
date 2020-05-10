@@ -71,4 +71,9 @@ screenshots/
 
 .vscode
 
+server/generated/*
+server/.graphqlconfig.yml
+server/datamodel.prisma
+server/prisma.yml
+
 

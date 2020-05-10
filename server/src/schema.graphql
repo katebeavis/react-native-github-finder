@@ -1,4 +1,4 @@
-# import * from './generated/prisma-client/prisma.graphql'
+# import * from '../generated/prisma-client/prisma.graphql'
 
 type Query {
   notes(where: NoteWhereInput): [Note]!

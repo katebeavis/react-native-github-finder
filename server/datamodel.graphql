@@ -1,6 +1,0 @@
-type Note {
-  id: ID! @id
-  createdAt: DateTime! @createdAt
-  content: String!
-  username: String!
-}

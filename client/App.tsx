@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { BASE_URL } from 'react-native-dotenv';
 
 import Home from './App/Components/Home/Home';
 import Overview from './App/Components/Overview/Overview';
@@ -15,7 +14,7 @@ import Notes from './App/Components/Notes/Notes';
 import { UserProvider } from './App/Components/UserContext/UserProvider';
 
 const client = new ApolloClient({
-  uri: `http://${BASE_URL}:4444/graphql`,
+  uri: `http://localhost:4444/graphql`,
 });
 
 const App = () => {
